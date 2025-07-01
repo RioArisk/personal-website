@@ -98,20 +98,47 @@ document.addEventListener('DOMContentLoaded', function() {
     const projectObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = 1;
-                entry.target.style.transform = 'translateY(0)';
+                // 使用延迟，让卡片一个接一个地出现
+                setTimeout(() => {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }, entry.target.dataset.delay || 0);
                 projectObserver.unobserve(entry.target);
             }
         });
     }, {
-        threshold: 0.1
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     });
     
-    projectCards.forEach(card => {
+    projectCards.forEach((card, index) => {
+        // 为每张卡片设置不同的延迟
+        card.dataset.delay = index * 150;
         card.style.opacity = 0;
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
         projectObserver.observe(card);
+        
+        // 鼠标悬停效果增强
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+        
+        // 点击卡片图片区域时显示大图
+        const imageContainer = card.querySelector('.project-image');
+        if (imageContainer) {
+            imageContainer.addEventListener('click', function() {
+                const activeSlide = this.querySelector('.slideshow-img.active');
+                if (activeSlide) {
+                    // 触发图片点击事件，显示大图
+                    activeSlide.click();
+                }
+            });
+        }
     });
     
     // 时间线项目动画
@@ -220,9 +247,18 @@ function initSlideshow() {
         let slideInterval;
         let touchStartX = 0;
         let touchEndX = 0;
+        
+        // 添加加载指示器
+        const loadingIndicator = document.createElement('div');
+        loadingIndicator.className = 'loading-indicator';
+        loadingIndicator.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        container.appendChild(loadingIndicator);
 
         // 动态加载图片
         loadImagesFromFolder(imageFolder, container).then(imageElements => {
+            // 移除加载指示器
+            container.querySelector('.loading-indicator')?.remove();
+            
             slides = imageElements;
             if (slides.length > 0) {
                 // 初始显示第一张幻灯片
@@ -230,6 +266,11 @@ function initSlideshow() {
                 // 开始自动切换
                 startSlideshow();
             }
+        }).catch(error => {
+            console.error('加载图片失败:', error);
+            // 显示错误状态
+            loadingIndicator.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
+            loadingIndicator.className = 'loading-error';
         });
 
         // 显示指定索引的幻灯片

@@ -348,36 +348,47 @@ a:hover {
 /* 项目经验 */
 #projects {
     background: var(--section-bg-white);
+    padding-bottom: 100px;
 }
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 30px;
-    margin-top: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 40px;
+    margin-top: 50px;
 }
 
 .project-card {
     background-color: white;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
+    box-shadow: rgba(17, 12, 46, 0.05) 0px 10px 20px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    border: 1px solid rgba(230, 230, 230, 0.7);
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 15px 30px;
 }
 
 .project-image {
-    height: 200px;
+    height: 220px;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    border-radius: 4px 4px 0 0;
     position: relative;
+    background-color: #f8f9fa;
+}
+
+.project-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0,0,0,0.05), transparent);
+    pointer-events: none;
 }
 
 .slideshow-container {
@@ -399,7 +410,7 @@ a:hover {
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
     cursor: pointer;
 }
 
@@ -407,73 +418,209 @@ a:hover {
     opacity: 1;
 }
 
+.project-card:hover .slideshow-img.active {
+    transform: scale(1.05);
+}
+
 .slideshow-controls {
     position: absolute;
-    bottom: 10px;
+    bottom: 15px;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 0 10px;
+    padding: 0 15px;
     z-index: 10;
 }
 
 .slideshow-controls button {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.9);
     border: none;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.3s;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    opacity: 0.7;
 }
 
 .slideshow-controls button:hover {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: white;
+    transform: scale(1.1);
+    opacity: 1;
 }
 
 .project-header {
-    padding: 20px;
+    padding: 22px 25px 15px;
+    position: relative;
 }
 
 .project-header h3 {
-    margin: 0 0 10px;
-    font-size: 1.2rem;
+    margin: 0 0 15px;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    position: relative;
+    font-weight: 600;
 }
 
 .project-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 .tag {
-    background-color: #edf2f7;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    color: #4a5568;
+    background-color: rgba(66, 153, 225, 0.08);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: all 0.2s ease;
 }
 
-.project-footer {
-    padding: 15px 20px;
-    border-top: 1px solid #edf2f7;
+.tag:hover {
+    background-color: rgba(66, 153, 225, 0.15);
+    transform: translateY(-2px);
+}
+
+.project-description {
+    padding: 0 25px 20px;
+    line-height: 1.6;
+    color: var(--light-text);
+}
+
+.project-description p {
+    margin-bottom: 20px;
+    font-size: 0.95rem;
 }
 
 .project-links {
     display: flex;
-    justify-content: space-between;
+    gap: 12px;
+    padding: 0 25px 25px;
 }
 
 .project-links a {
-    color: #3182ce;
-    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background-color: var(--code-bg);
+    border-radius: 8px;
     font-size: 0.9rem;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    flex: 1;
+    text-align: center;
+}
+
+.project-links a i {
+    font-size: 0.85rem;
+    transition: transform 0.3s ease;
 }
 
 .project-links a:hover {
-    text-decoration: underline;
+    background-color: var(--secondary-color);
+    color: white;
+    transform: translateY(-3px);
+}
+
+.project-links a:hover i {
+    transform: translateX(3px);
+}
+
+.project-links a.demo-link {
+    background-color: rgba(128, 90, 213, 0.1);
+    color: var(--accent-color);
+}
+
+.project-links a.demo-link:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+@media (max-width: 992px) {
+    /* 项目卡片在平板上的调整 */
+    .project-card {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .project-links {
+        flex-direction: row;
+        gap: 15px;
+    }
+    
+    .project-links a {
+        flex: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    /* 移动端项目卡片样式调整 */
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .project-image {
+        height: 200px;
+    }
+    
+    .project-header {
+        padding: 20px 20px 12px;
+    }
+    
+    .project-description {
+        padding: 0 20px 15px;
+    }
+    
+    .project-links {
+        padding: 0 20px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-card {
+        border-radius: 10px;
+    }
+    
+    .project-image {
+        height: 180px;
+        border-radius: 10px 10px 0 0;
+    }
+    
+    .project-header h3 {
+        font-size: 1.15rem;
+    }
+    
+    .project-tags {
+        gap: 6px;
+    }
+    
+    .tag {
+        padding: 5px 10px;
+        font-size: 0.75rem;
+    }
+    
+    .project-description p {
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+    }
+    
+    .project-links a {
+        padding: 9px 12px;
+        font-size: 0.85rem;
+    }
 }
 
 /* 响应式设计调整 */
@@ -1236,5 +1383,39 @@ footer p { margin-bottom: 10px; }
     
     .contact-item {
         padding: 15px;
+    }
+}
+
+/* 加载指示器 */
+.loading-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--secondary-color);
+    font-size: 2rem;
+    z-index: 5;
+}
+
+.loading-indicator i {
+    animation: spin 1.5s infinite linear;
+}
+
+.loading-error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #e53e3e;
+    font-size: 2rem;
+    z-index: 5;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 } 
