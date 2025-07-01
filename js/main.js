@@ -10,8 +10,15 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // 如果在移动端，点击导航链接后关闭菜单
             const nav = document.getElementById('hero-nav');
-            if (nav.classList.contains('active')) {
-                nav.classList.remove('active');
+            const mobileNav = document.getElementById('mobile-nav');
+            
+            if (nav.classList.contains('is-active')) {
+                nav.classList.remove('is-active');
+            }
+            
+            if (mobileNav && mobileNav.classList.contains('is-active')) {
+                mobileNav.classList.remove('is-active');
+                document.body.classList.remove('menu-open');
             }
             
             document.querySelector(this.getAttribute('href')).scrollIntoView({
@@ -22,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 导航栏高亮当前部分
     const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.hero-nav a');
+    const navLinks = document.querySelectorAll('.hero-nav a, .mobile-nav a');
 
     window.addEventListener('scroll', function() {
         let current = '';
@@ -211,6 +218,8 @@ function initSlideshow() {
         let slides = [];
         let currentSlide = 0;
         let slideInterval;
+        let touchStartX = 0;
+        let touchEndX = 0;
 
         // 动态加载图片
         loadImagesFromFolder(imageFolder, container).then(imageElements => {
@@ -249,6 +258,7 @@ function initSlideshow() {
 
         // 开始自动切换
         function startSlideshow() {
+            if (!slides.length) return;
             slideInterval = setInterval(nextSlide, 3000);
         }
 
@@ -257,23 +267,51 @@ function initSlideshow() {
             clearInterval(slideInterval);
         }
 
-        // 设置控制按钮
-        if (prevBtn) prevBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            prevSlide();
-        });
-        
-        if (nextBtn) nextBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            nextSlide();
-        });
-        
-        // 项目卡片悬停时停止自动切换
-        const projectCard = slideshow.closest('.project-card');
-        if (projectCard) {
-            projectCard.addEventListener('mouseenter', stopSlideshow);
-            projectCard.addEventListener('mouseleave', startSlideshow);
+        // 按钮事件
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                stopSlideshow();
+                prevSlide();
+                startSlideshow();
+            });
         }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                stopSlideshow();
+                nextSlide();
+                startSlideshow();
+            });
+        }
+
+        // 触摸事件支持
+        container.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+            stopSlideshow();
+        }, {passive: true});
+
+        container.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+            startSlideshow();
+        }, {passive: true});
+
+        function handleSwipe() {
+            const threshold = 50; // 最小滑动距离
+            if (touchEndX - touchStartX > threshold) {
+                // 向右滑动，显示上一张
+                prevSlide();
+            } else if (touchStartX - touchEndX > threshold) {
+                // 向左滑动，显示下一张
+                nextSlide();
+            }
+        }
+
+        // 鼠标悬停时暂停
+        container.addEventListener('mouseenter', stopSlideshow);
+        container.addEventListener('mouseleave', startSlideshow);
     });
 
     // 兼容旧代码，处理已有的book-system-slideshow
@@ -553,38 +591,48 @@ function initModal() {
 // 移动端菜单功能
 function initMobileMenu() {
     const menuBtn = document.getElementById('mobile-menu-btn');
-    const navMenu = document.getElementById('hero-nav');
+    const heroNav = document.getElementById('hero-nav');
+    const mobileNav = document.getElementById('mobile-nav');
 
-    if (!menuBtn || !navMenu) {
-        return;
-    }
+    if (!menuBtn) return;
 
-    const openIcon = '<i class="fas fa-bars"></i>';
-    const closeIcon = '<i class="fas fa-times"></i>';
-
-    menuBtn.addEventListener('click', function() {
-        // 切换菜单的激活状态
-        const isActive = navMenu.classList.toggle('is-active');
+    menuBtn.addEventListener('click', function(e) {
+        e.preventDefault();
         
-        // 根据状态更新按钮图标和背景滚动
-        if (isActive) {
-            menuBtn.innerHTML = closeIcon;
-            document.body.style.overflow = 'hidden'; // 禁止背景滚动
+        // 切换移动导航菜单
+        if (mobileNav) {
+            mobileNav.classList.toggle('is-active');
+            document.body.classList.toggle('menu-open');
+        }
+        
+        // 切换菜单按钮样式
+        menuBtn.classList.toggle('is-active');
+        
+        // 禁止/启用背景滚动
+        if (mobileNav && mobileNav.classList.contains('is-active')) {
+            document.body.style.overflow = 'hidden';
         } else {
-            menuBtn.innerHTML = openIcon;
-            document.body.style.overflow = ''; // 恢复背景滚动
+            document.body.style.overflow = '';
         }
     });
-
-    // 为所有导航链接添加点击事件，以便在点击后关闭菜单
-    const navLinks = navMenu.querySelectorAll('a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (navMenu.classList.contains('is-active')) {
-                navMenu.classList.remove('is-active');
-                menuBtn.innerHTML = openIcon; // 恢复为打开图标
-                document.body.style.overflow = '';
-            }
-        });
+    
+    // 添加页面滚动事件，滚动时如果菜单打开则关闭它
+    window.addEventListener('scroll', function() {
+        if (mobileNav && mobileNav.classList.contains('is-active')) {
+            mobileNav.classList.remove('is-active');
+            menuBtn.classList.remove('is-active');
+            document.body.classList.remove('menu-open');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    // 添加窗口大小变化检测，在宽屏设备上关闭移动菜单
+    window.addEventListener('resize', function() {
+        if (window.innerWidth >= 992 && mobileNav && mobileNav.classList.contains('is-active')) {
+            mobileNav.classList.remove('is-active');
+            menuBtn.classList.remove('is-active');
+            document.body.classList.remove('menu-open');
+            document.body.style.overflow = '';
+        }
     });
 } 

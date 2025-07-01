@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="张琪的个人简历 - 昆明理工大学物流工程专业应届毕业生，具备编程技能，寻求开发职位">
+    <meta name="keywords" content="张琪,个人简历,物流工程,程序开发,Python,Java,前端开发">
     <title>张琪的个人简历</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <div class="hero-section">
@@ -33,12 +36,24 @@
     
     <div class="divider"></div>
     
+    <!-- 移动端导航菜单 -->
+    <div class="mobile-nav" id="mobile-nav">
+        <div class="mobile-nav-container">
+            <a href="#about" class="active">关于我</a>
+            <a href="#skills">专业技能</a>
+            <a href="#experience">实习经历</a>
+            <a href="#competitions">竞赛经历</a>
+            <a href="#projects">项目经验</a>
+            <a href="#contact">联系方式</a>
+        </div>
+    </div>
+    
     <section id="about" class="section">
         <div class="container about-layout">
             <div class="about-intro">
                 <h2 class="section-title">关于我</h2>
                 <div class="profile-text">
-                    <p>我是来自昆明理工大学物流工程专业的应届毕业生。在大学期间对编程很感兴趣，在2024年参加公务员考试，俩次进面，但遗憾未上岸。目前，我正积极需求开发领域的工作                   </p>
+                    <p>我是来自昆明理工大学物流工程专业的应届毕业生。在大学期间对编程很感兴趣，在2024年参加公务员考试，俩次进面，但遗憾未上岸。目前，我正积极寻求开发领域的工作。</p>
                     
                     <p>在校期间，我系统学习了物流中心设计与仿真、物流自动化系统设计与理论、供应链管理等核心课程，并在多个国家级和校级竞赛中取得佳绩，如全国大学生物流仿真设计大赛国家二等奖。这些经历不仅培养了我严谨的逻辑思维与算法设计能力，也让我的编程技术得到进一步提高。</p>
                     
@@ -48,7 +63,7 @@
                 </div>
             </div>
             <div class="profile-image">
-                <img src="images/profile.jpg" alt="个人照片" id="profile-photo">
+                <img src="images/profile.jpg" alt="个人照片" id="profile-photo" loading="lazy">
             </div>
         </div>
     </section>
@@ -162,7 +177,13 @@
                             <span class="tag">Vue.js</span>
                         </div>
                     </div>
-
+                    <div class="project-description">
+                        <p>开发了一个完整的电子商务平台，实现了用户管理、商品展示、购物车、订单处理等功能。项目采用前后端分离架构，后端使用SpringBoot实现RESTful API，前端基于Vue.js构建响应式界面。</p>
+                        <div class="project-links">
+                            <a href="https://github.com/yourusername/ecommerce-platform" target="_blank">查看源码 <i class="fas fa-code"></i></a>
+                            <a href="#" class="demo-link">查看演示 <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
                 </div>
                 <div class="project-card">
                     <div class="project-image" id="book-system-slideshow" data-folder="images/2">
@@ -181,7 +202,13 @@
                             <span class="tag">MySQL</span>
                         </div>
                     </div>
-
+                    <div class="project-description">
+                        <p>设计并实现了一个功能完备的图书管理系统，包括图书入库、借阅、归还、库存管理等功能。使用JavaEE技术栈开发，结合MySQL数据库实现数据持久化，提供了直观的用户界面和完善的权限管理。</p>
+                        <div class="project-links">
+                            <a href="https://github.com/yourusername/library-management" target="_blank">查看源码 <i class="fas fa-code"></i></a>
+                            <a href="#" class="demo-link">查看演示 <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
                 </div>
                 <div class="project-card">
                     <div class="project-image" id="logistics-slideshow" data-folder="images/3">
@@ -201,7 +228,13 @@
                             <span class="tag">HTML/CSS/JS</span>
                         </div>
                     </div>
-
+                    <div class="project-description">
+                        <p>开发了一个基于LangChain框架的智能问答平台，通过向量数据库存储和检索文档内容，结合OpenAI API实现智能问答和知识检索。系统能够理解用户提问，并从预先导入的知识库中检索相关信息提供准确回答。</p>
+                        <div class="project-links">
+                            <a href="https://github.com/yourusername/langchain-qa-platform" target="_blank">查看源码 <i class="fas fa-code"></i></a>
+                            <a href="#" class="demo-link">查看演示 <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -223,7 +256,7 @@
                 </div>
                 <div class="contact-item">
                     <div class="contact-icon"><i class="fab fa-github"></i></div>
-                    <div class="contact-info"><p><a href="" target="_blank">GitHub</a></p></div>
+                    <div class="contact-info"><p><a href="https://github.com/yourusername" target="_blank">GitHub</a></p></div>
                 </div>
             </div>
         </div>
@@ -233,7 +266,7 @@
         <div class="container">
             <p>&copy; <span id="current-year">2025</span> 张琪</p>
             <div class="social-links">
-                <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://github.com/yourusername" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
             </div>
         </div>
     </footer>
