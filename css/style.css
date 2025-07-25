@@ -216,7 +216,7 @@ a:hover {
 
 .about-layout {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 2fr 1fr;
     align-items: center;
     gap: 60px;
 }
@@ -236,7 +236,7 @@ a:hover {
 
 .profile-image img {
     width: 100%;
-    max-width: 220px;
+    max-width: 280px;
     border-radius: 50%;
     object-fit: cover;
     box-shadow: var(--shadow-lg);
@@ -1372,5 +1372,236 @@ footer p {
 
     #contact .container {
         padding: 0 10px;
+    }
+}
+
+/* ========== 桌面端大屏幕优化 ========== */
+
+/* 大桌面屏幕优化 (1440px+) */
+@media screen and (min-width: 1440px) {
+    .container {
+        max-width: 1400px;
+        padding: 0 40px;
+    }
+    
+    /* 增大主要字体 */
+    .hero-main h1 {
+        font-size: 3rem;
+    }
+    
+    .hero-content .subtitle {
+        font-size: 1.25rem;
+    }
+    
+    .section-title {
+        font-size: 38px;
+    }
+    
+    /* 优化导航间距 */
+    .hero-nav {
+        gap: 20px;
+    }
+    
+    .hero-nav a {
+        padding: 10px 16px;
+        font-size: 1rem;
+    }
+    
+    /* 优化关于我部分 */
+    .about-layout {
+        gap: 80px;
+    }
+    
+    .profile-image img {
+        max-width: 320px;
+    }
+    
+    .profile-text p {
+        font-size: 18px;
+        line-height: 1.9;
+    }
+    
+    /* 技能卡片布局优化 */
+    .skills-grid {
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        gap: 40px;
+    }
+    
+    .skill-card {
+        padding: 30px;
+    }
+    
+    /* 项目卡片布局优化 */
+    .projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+        gap: 50px;
+    }
+    
+    .project-image {
+        height: 240px;
+    }
+    
+    /* 联系方式优化 */
+    .contact-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 30px;
+    }
+    
+    /* 时间线优化 */
+    .timeline {
+        max-width: 1000px;
+    }
+    
+    .timeline-content {
+        padding: 25px;
+    }
+}
+
+/* 超大桌面屏幕优化 (1920px+) */
+@media screen and (min-width: 1920px) {
+    .container {
+        max-width: 1600px;
+        padding: 0 60px;
+    }
+    
+    /* 进一步增大字体 */
+    .hero-main h1 {
+        font-size: 3.5rem;
+    }
+    
+    .hero-content .subtitle {
+        font-size: 1.4rem;
+    }
+    
+    .section-title {
+        font-size: 42px;
+    }
+    
+    /* 优化导航 */
+    .hero-nav {
+        gap: 30px;
+    }
+    
+    .hero-nav a {
+        padding: 12px 20px;
+        font-size: 1.1rem;
+    }
+    
+    /* 关于我部分进一步优化 */
+    .about-layout {
+        gap: 100px;
+    }
+    
+    .profile-image img {
+        max-width: 380px;
+    }
+    
+    .profile-text p {
+        font-size: 19px;
+        line-height: 2;
+        margin-bottom: 20px;
+    }
+    
+    /* 技能卡片布局 */
+    .skills-grid {
+        grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+        gap: 50px;
+    }
+    
+    .skill-card {
+        padding: 35px;
+    }
+    
+    .skill-card-title {
+        font-size: 22px;
+        margin-bottom: 25px;
+    }
+    
+    /* 项目卡片布局 */
+    .projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+        gap: 60px;
+    }
+    
+    .project-image {
+        height: 260px;
+    }
+    
+    .project-content {
+        padding: 30px 35px;
+    }
+    
+    .project-header h3 {
+        font-size: 1.4rem;
+    }
+    
+    .project-description p {
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+    
+    /* 联系方式优化 */
+    .contact-grid {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 40px;
+    }
+    
+    .contact-item {
+        padding: 30px;
+    }
+    
+    /* 时间线优化 */
+    .timeline {
+        max-width: 1200px;
+    }
+    
+    .timeline-content {
+        padding: 30px;
+    }
+    
+    .timeline-content h3 {
+        font-size: 22px;
+    }
+    
+    .timeline-content h4 {
+        font-size: 18px;
+    }
+    
+    /* 优化章节间距 */
+    .section {
+        padding: 90px 0;
+    }
+}
+
+/* 4K屏幕优化 (2560px+) */
+@media screen and (min-width: 2560px) {
+    .container {
+        max-width: 2000px;
+        padding: 0 80px;
+    }
+    
+    /* 字体进一步优化 */
+    .hero-main h1 {
+        font-size: 4rem;
+    }
+    
+    .section-title {
+        font-size: 48px;
+    }
+    
+    /* 项目卡片在4K下可以显示更多列 */
+    .projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+        gap: 80px;
+    }
+    
+    .skills-grid {
+        grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+        gap: 60px;
+    }
+    
+    /* 优化间距 */
+    .section {
+        padding: 120px 0;
     }
 } 
